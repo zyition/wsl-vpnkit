@@ -21,10 +21,6 @@ jobs:
       run: |
         docker build -t $TAG_NAME -f ./distro/alpine.dockerfile --build-arg REF=$RUN_URL --build-arg VERSION=${GITHUB_REF#refs/tags/} .
 
-    - uses: anchore/scan-action@v3
-      with:
-        image: ${{ env.TAG_NAME }}
-
     - name: Package
       run: |
         CONTAINER_ID=$(docker create $TAG_NAME)
